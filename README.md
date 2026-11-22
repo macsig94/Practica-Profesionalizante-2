@@ -9,7 +9,8 @@ Trabajo práctico de Bases de Datos. Tomé el dataset de Telco Customer Churn (7
 /data_and_sql
     DER_TELCOCHURN2.png  -> diagrama entidad-relación
     basededatos.sql      -> creación de la base churn_db y las 4 tablas
-    consultas_churn.sql          -> consultas de la actividad (SELECT, WHERE, AND/OR, LIKE, ORDER BY, LIMIT)
+    consultas_churn.sql  -> consultas de la actividad (SELECT, WHERE, AND/OR, LIKE, ORDER BY, LIMIT)
+    clase4_dml_transacciones.sql  -> INSERT, UPDATE con ROLLBACK y DELETE seguro dentro de transacciones    
     
 ```
 
