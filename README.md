@@ -1,6 +1,5 @@
 # Practica-Profesionalizante-2
 # Análisis de Telco Customer Churn con Python y MySQL
-
 Trabajo práctico de Bases de Datos. Tomé el dataset de Telco Customer Churn (7043 clientes), lo limpié con Python (pandas), lo dividí en 4 tablas relacionadas (3FN) y lo cargué en el Workbench para hacer consultas SQL.
 
 ## Estructura del repositorio
