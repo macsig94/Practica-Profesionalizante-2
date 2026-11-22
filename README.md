@@ -37,4 +37,19 @@ ORDER BY f.cargo_total DESC,
          f.id_cliente ASC
 LIMIT 5;
 ```
+## Arquitectura de Datos
+
+### El rol de las transacciones (COMMIT / ROLLBACK)
+Una transacción agrupa varias sentencias SQL para que se traten como una sola unidad: o se aplican todas, o no se aplica ninguna. Se abre con `START TRANSACTION;` y se cierra con:
+- **`COMMIT;`**, que confirma los cambios y los guarda de forma permanente.
+- **`ROLLBACK;`**, que los deshace y deja la base como estaba al empezar.
+
+En `clase4_dml_transacciones.sql` lo usé para simular un aumento del 10% al `cargo_mensual` de los contratos *Month-to-month*: dentro de la transacción comprobé los nuevos montos con un `SELECT` y, al "cancelar" el aumento, el `ROLLBACK` devolvió todos los valores a su estado original. Con el `DELETE` hice algo parecido: primero valido con un `SELECT` qué filas se van a borrar y recién después borro dentro de una transacción, para poder volver atrás si me equivoco. Esto evita perder datos por un error en el `WHERE`, algo que sin transacción sería irreversible.
+
+### La importancia de la FOREIGN KEY (integridad referencial)
+Mi base tiene a `clientes` como tabla principal y a `facturacion`, `servicios` y `registro_churn` como tablas hijas, relacionadas por `id_cliente` mediante claves foráneas. La `FOREIGN KEY` garantiza la **integridad referencial**:
+- No se puede insertar un registro de facturación, servicios o churn de un cliente que no existe en `clientes`.
+- No se puede borrar un cliente que todavía tiene registros en las tablas hijas (MySQL devuelve el error 1451), así que no quedan registros "huérfanos".
+
+Gracias a esto, todos los datos del dataset siguen siendo coherentes entre sí. Por eso, al dar de alta el cliente nuevo, inserto primero en `clientes` y después en `servicios` y `facturacion`, buscando su `id_cliente` con una subconsulta.
 
